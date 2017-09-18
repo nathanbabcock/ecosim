@@ -1,0 +1,163 @@
+can you make an mmo with a mob ecosystem?
+- animals can be hunted to extinction
+- there is a balance between predators and prey, and a food chain
+- noobs are a part of the food chain... (lvl 1 spawning in an area with lvl 100 mobs = rip)
+- naturalism/conservation/biology
+- there is ecosystem balance, and then there is speciation/evolution: two separate problems
+- mobs must differentiate in complex enough ways
+- variables:
+	- behavior (aggressive, neutral, passive)
+	- speed
+	- attack dmg
+	- diet
+- must simulate reproduction somehow...
+	- animals must survive to a certain age, find a mate, protect their young
+- build up from very simple stimulus-response model to complex policies:
+	- child-care
+	- mating patterns
+	- reaction to enemies
+	- feeding habits
+- number of innate variables such as:
+	- age
+	- sexual maturity
+	- size
+	- speed
+	- hunger
+	- health
+	- diet
+- unique abilities (burrow, special attacks, etc)
+- types of foliage (trees, bushes)
+- types of terrain
+	- water, etc
+
+what effect does this have on gameplay?
+- interesting dynamic effects on where mobs may be found
+- emergent 'jobs' incl. science, conservation, breeding, etc
+
+
+stimulus:
+- long term context
+	- age: 20
+	- children: 3
+- medium term context
+	- 3:00PM
+	- hungry
+	- not sleepy
+	- healthy
+- short term context
+	- child nearby
+	- enemy nearby
+	- food nearby
+
+some genetic mapping from stimulus -> response
+- in theory, over time, better mappings become more common
+ as they are passed on
+- (over a looooong loooooooong time e.g. thousands of generations...)
+- "genes" are those mappings
+
+possible responses:
+- attack enemy
+- flee
+- stand ground
+- attack child
+- eat food
+- walk randomly
+- sleep
+
+the harder part: conjunctive stimuli, like:
+- <child nearby> AND <child unhealthy> AND <enemy nearby>
+vs
+  <child nearby> AND <child healthy> AND <enemy health>
+OR
+  <child nearby> AND <food nearby> AND <child hungry>
+
+herbivore which eats plants
+plants regenerate leaves over time
+animals have dynamic stats: hunger, health
+animals have static stats: healing rate, health rate, max health, move speed
+animal behaviors: (eventually become evolving genetic rules)
+- enemy in sight? run from enemy
+- food in sight? move towards food
+- mate in sight? move towards mate
+- no food or enemy? "search for food"
+	- how is the direction selected?
+		- selected randomly once, and then follow until something changes (or for a certain duration)
+
+MVP:
+- perception (loop over nearby objects)
+- eat (move towards perceived food, then eat)
+- fuck (move towards perceived mate, then fuck)
+- die (health bar reaches zero)
+- hunger bar which depletes at a rate (according to activity, or constant rate)
+	- affects health regen and eventually DOT
+- search (random walk w/ memory)
+- age
+	- dying of age
+	- sexual maturity
+
+9/15/17
+
+rabbit = {
+	game: ->game;
+
+	age: x,
+	sex: male,
+	health: 300,
+
+	eat(x)
+}
+
+behavior genes:
+[stimulus] => [response], WEIGHT
+stimulus = {
+	object_perceived
+}
+
+response = {
+	MOVE_TOWARD_OBJECT
+	EAT_OBJECT
+	FIGHT_OBJECT
+	FUCK_OBJECT
+}
+
+{
+	stimulus: [
+		"hungry",
+		"see food"
+	],
+	response: "eat food"
+}
+
+stimuli
+- hungry
+- low health
+- full health
+- not hungry
+- enemy nearby
+- opposite sex nearby
+- same sex nearby
+- is male/is female
+- food nearby
+
+score = [how current stimulus fits gene stimulus description] * [weight of gene]
+pick highest score (or make it probabalistic, score ~ likelihood of choice)
+
+complex perception:
+opposite sex nearby WHO 'just' killed an enemy
+same sex nearby WHO 'was just' attacked
+
+complex stimuli
+-memory
+	- there was food at (x, y)
+	- that animal just killed someone
+-empathy (understanding state of fellow entities)
+	- that dude looks hungry
+	- that dude is headed for the food
+- should each individual stimulus component have a weight (or is 0/1 good enough?)
+
+possible emergent behaviors:
+- sexual selection
+- child care
+- society/group relations (?) (herd vs solitary)
+	- tribe vs tribe more complex (long-term memory)
+- nocturnality/diurnality
